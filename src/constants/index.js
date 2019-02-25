@@ -1,3 +1,5 @@
+import { Dimensions } from 'react-native'
+
 import button from '../assets/images/button.png'
 import capture_icon from '../assets/images/capture-icon.png'
 import close_icon from '../assets/images/close-icon.png'
@@ -13,4 +15,10 @@ export default {
   LOGO: logo,
   MIC_ICON: mic_icon,
   PATERN: patern,
+
+  SCREEN : {
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height
+  }
+
 }

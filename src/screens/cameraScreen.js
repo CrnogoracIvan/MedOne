@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
+import { Actions } from 'react-native-router-flux'
 import { RNCamera } from 'react-native-camera';
 import constants from '../constants'
 
@@ -18,7 +19,7 @@ class cameraScreen extends Component {
           permissionDialogTitle={'Permission to use camera'}
           permissionDialogMessage={'We need your permission to use your camera phone'}
         >
-          <View style={{flexDirection:'row'}}>
+          <View style={{flex: 1, flexDirection:'row'}}>
             <Image
               source={constants.CLOSE_ICON}
               style={styles.optionIcon}
@@ -45,7 +46,8 @@ class cameraScreen extends Component {
     if (this.camera) {
       const options = { quality: 0.5, base64: true };
       const data = await this.camera.takePictureAsync(options);
-      console.log(data.uri);
+      Actions.patternScreen({uri:data.uri})
+      console.log('data uri is: ', data.uri);
     }
   };
 }
@@ -69,6 +71,12 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100
   },
+
+  header: {
+    flex: 1, 
+    flexDirection:'row'
+  },
+
   optionIcon: {
     width: 25,
     height: 25
