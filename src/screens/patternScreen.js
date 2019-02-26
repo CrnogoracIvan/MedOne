@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View, ImageBackground } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import constants from '../constants'
-
 class patternScreen extends Component {
   constructor(props){
     super(props)
@@ -14,19 +13,19 @@ class patternScreen extends Component {
 
   render(){
     return (
-      <ImageBackground style={styles.container} source={{uri:this.props.uri}}>
+        
+    
+      <ImageBackground 
+        style={styles.container} 
+        source={{uri:this.props.uri}}
+      >
         <LinearGradient
-        locations={[
-         0.9,
-         1
-        ]}
-          colors={[
-            'rgba(63, 107, 171, 0.3)', 
-            'rgba(26, 43, 71, 0.7)'
-          ]}
+          locations={[0.9,1]}
+          colors={['rgba(63, 107, 171, 0.3)', 'rgba(26, 43, 71, 0.7)']}
           style={styles.contentContainer}
         >
-      </LinearGradient>
+  
+        </LinearGradient>
       </ImageBackground>
   );
   }
@@ -42,6 +41,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex : 1,
+    flexDirection: 'row',
     paddingTop: 50,
     paddingHorizontal: 20,
     paddingVertical: 20,

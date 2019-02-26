@@ -3,6 +3,7 @@ import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { RNCamera } from 'react-native-camera';
 import constants from '../constants'
+import Header from '../components/header'
 
 class cameraScreen extends Component {
 
@@ -13,24 +14,18 @@ class cameraScreen extends Component {
           ref={ref => {
             this.camera = ref;
           }}
-          style={styles.preview}
           type={RNCamera.Constants.Type.front}
           flashMode={RNCamera.Constants.FlashMode.on}
           permissionDialogTitle={'Permission to use camera'}
-          permissionDialogMessage={'We need your permission to use your camera phone'}
+          permissionDialogMessage={'MedOne need your permission to use your camera phone'}
+          style={styles.preview}
         >
-          <View style={{flex: 1, flexDirection:'row'}}>
-            <Image
-              source={constants.CLOSE_ICON}
-              style={styles.optionIcon}
-            />
-            <Image
-              source={constants.MIC_ICON}
-              style={styles.optionIcon}
-            />
-          </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-            <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.captureButtonContainer}>
+          <Header />
+          <View style={styles.captureButtonContainer}>
+            <View style={styles.textContainer}>
+              <Text style={styles.text}>יאמו תזמה הנפים</Text>
+            </View>
+            <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.touchableButtonContainer}>
               <Image
                 source={constants.CAPTURE_ICON}
                 style={styles.captureImage}
@@ -44,7 +39,7 @@ class cameraScreen extends Component {
 
   takePicture = async function() {
     if (this.camera) {
-      const options = { quality: 0.5, base64: true };
+      const options = { quality: 1, base64: true };
       const data = await this.camera.takePictureAsync(options);
       Actions.patternScreen({uri:data.uri})
       console.log('data uri is: ', data.uri);
@@ -62,7 +57,27 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
-  captureButtonContainer: {
+
+  captureButtonContainer: { 
+    flexDirection: 'column', 
+    justifyContent: 'center', 
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)', 
+    width: '100%', 
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35 
+  },
+
+  textContainer: {
+    marginTop: 20
+  },
+
+  text: {
+    fontSize: 25,
+    color: 'rgb(0, 0, 0)'
+  },
+
+  touchableButtonContainer: {
     flex: 0,
     alignSelf: 'center',
     margin: 20,
@@ -71,15 +86,5 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100
   },
-
-  header: {
-    flex: 1, 
-    flexDirection:'row'
-  },
-
-  optionIcon: {
-    width: 25,
-    height: 25
-  }
 });
 export default cameraScreen
