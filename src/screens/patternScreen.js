@@ -24,14 +24,17 @@ class patternScreen extends Component {
           style={styles.contentContainer}
         >
           <View style={{flex: 1}}>
-            <Header />
+            <Header showLogo/>
             <TouchableOpacity
               style={styles.buttonContainer}
             >
+            <View style={styles.viewCont}>
               <Image 
                 style={styles.button}
                 source={constants.BUTTON}
               />
+            </View>
+             
             </TouchableOpacity>
           </View>
         </LinearGradient>
@@ -56,15 +59,18 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
 
-  buttonContainer: {
-    margin: 20,
-    alignSelf: 'center',
+  viewCont: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 250,
+    width: 230,
     height: 60,
+    margin: 20,
     borderRadius: 10,
     backgroundColor: 'rgb(255,255,255)'
+  },
+
+  buttonContainer: {
+    alignSelf: 'center',
   },
 
   button: {
