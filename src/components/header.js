@@ -1,5 +1,6 @@
 import React from 'react'
-import { StyleSheet, View, Image } from 'react-native'
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native'
+import RNExitApp from 'react-native-exit-app'
 import constants from '../constants'
 
 const header = (props) => {
@@ -21,10 +22,15 @@ const header = (props) => {
       <View style={styles.container}>
         <View style={styles.topContainer}>
           <View style={{flex: 1, alignItems: "flex-start"}}>
-            <Image
-              source={constants.CLOSE_ICON}
-              style={styles.closeIcon}
-            />
+            <TouchableOpacity
+              onPress={() => RNExitApp.exitApp()}
+            >
+              <Image
+                source={constants.CLOSE_ICON}
+                style={styles.closeIcon}
+              />
+            </TouchableOpacity>
+           
           </View>
           
           <View style={{flex: 1, alignItems: "flex-end"}}>

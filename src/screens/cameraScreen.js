@@ -37,7 +37,7 @@ class cameraScreen extends Component {
           type={RNCamera.Constants.Type.front}
           flashMode={RNCamera.Constants.FlashMode.on}
           permissionDialogTitle={'Permission to use camera'}
-          permissionDialogMessage={'MedOne need your permission to use your camera phone'}
+          permissionDialogMessage={'MedOne need permission to use your camera phone'}
           style={styles.preview}
         >
           <Header />

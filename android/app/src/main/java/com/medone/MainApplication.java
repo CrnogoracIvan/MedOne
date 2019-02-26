@@ -3,6 +3,7 @@ package com.medone;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.github.wumke.RNExitApp.RNExitAppPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import org.reactnative.camera.RNCameraPackage;
 import com.facebook.react.ReactNativeHost;
@@ -25,6 +26,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNExitAppPackage(),
             new LinearGradientPackage(),
             new RNCameraPackage()
       );
