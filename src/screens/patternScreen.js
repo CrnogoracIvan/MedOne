@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, ImageBackground, Image } from 'react-native'
+import { StyleSheet, TouchableOpacity, View, ImageBackground, Image } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import constants from '../constants'
 import Header from '../components/header'
@@ -10,6 +10,82 @@ class patternScreen extends Component {
 
   componentDidMount(){
     console.log('propsevi su: ', this.props.uri);
+  }
+
+
+  renderPattern(){
+    return(
+      <View style={styles.patternContainer}>
+
+        <View style={styles.patterRowContainer}>
+          <View style={styles.patternItemContainer}>
+            <Image 
+              style={styles.patternImage}
+              source={constants.PATERN}
+              resizeMode='contain'
+            />
+          </View>
+          <View style={styles.patternItemContainer}>
+            <Image 
+              style={styles.patternImage}
+              source={constants.PATERN}
+            />
+          </View>
+          <View style={styles.patternItemContainer}>
+            <Image 
+              style={styles.patternImage}
+              source={constants.PATERN}
+            />
+          </View>
+        </View>
+
+        <View style={styles.patterRowContainer}>
+          <View style={styles.patternItemContainer}>
+            <Image 
+              style={styles.patternImage}
+              source={constants.PATERN}
+              resizeMode='contain'
+            />
+          </View>
+          <View style={styles.patternItemContainer}>
+            <Image 
+              style={styles.patternImage}
+              source={constants.PATERN}
+            />
+          </View>
+          <View style={styles.patternItemContainer}>
+            <Image 
+              style={styles.patternImage}
+              source={constants.PATERN}
+            />
+          </View>
+        </View>
+
+        <View style={styles.patterRowContainer}>
+          <View style={styles.patternItemContainer}>
+            <Image 
+              style={styles.patternImage}
+              source={constants.PATERN}
+              resizeMode='contain'
+            />
+          </View>
+          <View style={styles.patternItemContainer}>
+            <Image 
+              style={styles.patternImage}
+              source={constants.PATERN}
+            />
+          </View>
+          <View style={styles.patternItemContainer}>
+            <Image 
+              style={styles.patternImage}
+              source={constants.PATERN}
+            />
+          </View>
+        </View>
+        
+        
+      </View>
+    )
   }
 
   render(){
@@ -25,6 +101,7 @@ class patternScreen extends Component {
         >
           <View style={{flex: 1}}>
             <Header showLogo/>
+            {this.renderPattern()}
             <TouchableOpacity
               style={styles.buttonContainer}
             >
@@ -69,10 +146,30 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgb(255,255,255)'
   },
 
-  buttonContainer: {
-    alignSelf: 'center',
+
+  patternContainer: {
+    flex: 2,
+    marginVertical: 10,
+    marginHorizontal: 30
+  },
+  patterRowContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  patternItemContainer: {
+    // borderColor: 'yellow',
+    // borderWidth: 1,
+    margin:10
+  },
+  patternImage: {
+    width: 60,
+    height: 60
   },
 
+  buttonContainer: {
+    flex: 1,
+    alignSelf: 'center',
+  },
   button: {
     width: 200,
     height: 60,
