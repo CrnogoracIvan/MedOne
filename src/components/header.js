@@ -5,7 +5,7 @@ import constants from '../constants'
 const header = () => {
   const renderBody = () => {
     return (
-      <View style={{flex: 1, flexDirection:'row'}}>
+      <View style={styles.container}>
         <View style={{flex: 1, alignItems: "flex-start"}}>
           <Image
             source={constants.CLOSE_ICON}
@@ -29,6 +29,13 @@ const header = () => {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: 'red'
+  },
+
   optionIcon: {
     width: 18,
     height: 18,

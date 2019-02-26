@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, ImageBackground } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View, ImageBackground, Image } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
 import constants from '../constants'
+import Header from '../components/header'
 class patternScreen extends Component {
   constructor(props){
     super(props)
@@ -13,8 +14,6 @@ class patternScreen extends Component {
 
   render(){
     return (
-        
-    
       <ImageBackground 
         style={styles.container} 
         source={{uri:this.props.uri}}
@@ -24,7 +23,17 @@ class patternScreen extends Component {
           colors={['rgba(63, 107, 171, 0.3)', 'rgba(26, 43, 71, 0.7)']}
           style={styles.contentContainer}
         >
-  
+          <View style={{flex: 1}}>
+            <Header />
+            <TouchableOpacity
+              style={styles.buttonContainer}
+            >
+              <Image 
+                style={styles.button}
+                source={constants.BUTTON}
+              />
+            </TouchableOpacity>
+          </View>
         </LinearGradient>
       </ImageBackground>
   );
@@ -42,12 +51,25 @@ const styles = StyleSheet.create({
   contentContainer: {
     flex : 1,
     flexDirection: 'row',
-    paddingTop: 50,
-    paddingHorizontal: 20,
-    paddingVertical: 20,
     overflow:'visible',
     alignItems: 'center',
     alignSelf: 'stretch',
   },
+
+  buttonContainer: {
+    margin: 20,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 250,
+    height: 60,
+    borderRadius: 10,
+    backgroundColor: 'rgb(255,255,255)'
+  },
+
+  button: {
+    width: 200,
+    height: 60,
+  }
 });
 export default patternScreen
