@@ -4,68 +4,93 @@ import LinearGradient from 'react-native-linear-gradient'
 import constants from '../constants'
 import Header from '../components/header'
 import GesturePassword from 'react-native-smart-gesture-password-angeloslex'
+
 class patternScreen extends Component {
   constructor(props){
     super(props)
     this.state = {
       isWarning: false,
-      message: 'Verify your gesture password',
+      message: 'Please enter your password',
       messageColor: '#A9A9A9',
       password: '',
       thumbnails: [],
   };
   this._cachedPassword = ''
+  this._verifiedPassword = ''
   }
 
   componentDidMount(){
-    console.log('propsevi su: ', this.props.uri);
-    this._cachedPassword = '0125' //get cached gesture password
+    this._cachedPassword = '' //get cached gesture password
   }
 
 
 _onReset = () => {
     let isWarning = false
-    //let password = ''
-    let message = 'Verify your gesture password'
     let messageColor = '#A9A9A9'
-    this.setState({
+    let message
+    if (this.state.message === 'Verification failed, please try again.'){
+      message = 'Please enter your password'
+      this.setState({
         isWarning,
         //password,
         message,
         messageColor,
-    })
+      })
+    } else {
+        this.setState({
+          isWarning,
+          messageColor,
+      })
+    }
 }
 
 _onFinish = (password) => {
-    if (password === this._cachedPassword) {
+    if (this._cachedPassword === '' && this._verifiedPassword === ''){
+      this._cachedPassword = password
+      let isWarning = false
+      let message = 'Please verify your password'
+      let messageColor = '#2456A6'
+      this.setState({
+          isWarning,
+          message,
+          messageColor,
+      })
+      return
+    }
+
+    if (this._cachedPassword !== '' && this._verifiedPassword === '') {
+      if (password === this._cachedPassword){
+        this._verifiedPassword = password
         let isWarning = false
-        let message = 'Verify succeed'
-        let messageColor = '#00AAEF'
+        let message = 'Password verified'
+        let messageColor = '#004C00'
         this.setState({
-            isWarning,
-            password,
-            message,
-            messageColor,
+          isWarning,
+          message,
+          messageColor,
+          password
         })
+      } else {
+          let isWarning = true
+          let message
+          let messageColor = 'red'
+          if (password.length < 4) {
+              message = 'Need to link at least 4 points'
+          }
+          else {
+              message = 'Verification failed, please try again.'
+              this._cachedPassword = ''
+              this._verifiedPassword = ''
+          }
+          this.setState({
+              isWarning,
+              password,
+              message,
+              messageColor,
+          })
+      }
     }
-    else {
-        let isWarning = true
-        let message
-        let messageColor = 'red'
-        if (password.length < 4) {
-            message = 'Need to link at least 4 points'
-        }
-        else {
-            message = 'Verify failed'
-        }
-        this.setState({
-            isWarning,
-            password,
-            message,
-            messageColor,
-        })
-    }
-    Alert.alert('password is ' + password)
+    // Alert.alert('password is ' + password)
   }
 
   renderHeader = () => {
@@ -102,7 +127,7 @@ _onFinish = (password) => {
           pointBackgroundColor={'#F4F4F4'}
           isWarning={this.state.isWarning}
           color={'#A9A9A9'}
-          activeColor={'#00AAEF'}
+          activeColor={'#2456A6'}
           warningColor={'red'}
           warningDuration={1500}
           allowCross={false}
@@ -127,8 +152,7 @@ _onFinish = (password) => {
           style={styles.contentContainer}
         >
           <View style={{flex: 1}}>
-            {this.renderPattern()}
-            
+            {this.renderPattern()}  
           </View>
         </LinearGradient>
       </ImageBackground>
@@ -165,9 +189,7 @@ const styles = StyleSheet.create({
     fontSize: 14, marginVertical: 6, 
   },
   patternContainer: {
-    flex: 4,
-    borderColor: 'blue',
-    borderWidth: 1,
+    flex: 6,
     // marginVertical: 10,
     // marginHorizontal: 30
   },
