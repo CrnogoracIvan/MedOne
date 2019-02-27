@@ -7,13 +7,16 @@
     "test": "jest"
   },
   "dependencies": {
+    "prop-types": "^15.7.2",
     "react": "16.6.3",
     "react-native": "0.58.5",
     "react-native-camera": "^1.12.0",
     "react-native-exit-app": "^1.0.0",
     "react-native-linear-gradient": "^2.5.3",
     "react-native-loading-spinner-overlay": "^1.0.1",
-    "react-native-router-flux": "^4.0.6"
+    "react-native-router-flux": "^4.0.6",
+    "react-native-smart-gesture-password": "^2.1.0",
+    "react-native-smart-gesture-password-angeloslex": "^2.1.5"
   },
   "devDependencies": {
     "babel-core": "7.0.0-bridge.0",

@@ -7,7 +7,6 @@ import GesturePassword from 'react-native-smart-gesture-password-angeloslex'
 class patternScreen extends Component {
   constructor(props){
     super(props)
-
     this.state = {
       isWarning: false,
       message: 'Verify your gesture password',
@@ -20,7 +19,7 @@ class patternScreen extends Component {
 
   componentDidMount(){
     console.log('propsevi su: ', this.props.uri);
-    this._cachedPassword = '13457' //get cached gesture password
+    this._cachedPassword = '0125' //get cached gesture password
   }
 
 
@@ -69,11 +68,37 @@ _onFinish = (password) => {
     Alert.alert('password is ' + password)
   }
 
+  renderHeader = () => {
+    return (
+      <View style={{flex:1}}>
+        <Header showLogo/>
+        <View style={{height: 158, paddingBottom: 10, justifyContent: 'flex-end', alignItems: 'center',}}>
+          <Text
+            style={[styles.message, {color:this.state.messageColor}]}>{this.state.message}</Text>
+        </View>
+      </View>
+    )
+  }
+  renderButton = () => {
+    return (
+      <TouchableOpacity
+        style={styles.buttonContainer}
+      >
+        <View style={styles.viewCont}>
+          <Image 
+            style={styles.button}
+            source={constants.BUTTON}
+          />
+        </View>
+    </TouchableOpacity>
+    )
+  }
+
   renderPattern(){
     return(
       <View style={styles.patternContainer}>
         <GesturePassword
-          // style={{paddingTop: 20 + 44,}}
+          // style={{paddingTop: 50}}
           pointBackgroundColor={'#F4F4F4'}
           isWarning={this.state.isWarning}
           color={'#A9A9A9'}
@@ -83,6 +108,8 @@ _onFinish = (password) => {
           allowCross={false}
           onFinish={this._onFinish}
           onReset={this._onReset}
+          topComponent={this.renderHeader()}
+          bottomComponent={this.renderButton()}
         />  
       </View>
     )
@@ -100,19 +127,8 @@ _onFinish = (password) => {
           style={styles.contentContainer}
         >
           <View style={{flex: 1}}>
-            <Header showLogo/>
             {this.renderPattern()}
-            <TouchableOpacity
-              style={styles.buttonContainer}
-            >
-            <View style={styles.viewCont}>
-              <Image 
-                style={styles.button}
-                source={constants.BUTTON}
-              />
-            </View>
-             
-            </TouchableOpacity>
+            
           </View>
         </LinearGradient>
       </ImageBackground>
@@ -135,7 +151,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'stretch',
   },
-
   viewCont: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -145,17 +160,21 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: 'rgb(255,255,255)'
   },
-
-
+  message:{
+    fontFamily: '.HelveticaNeueInterface-MediumP4', 
+    fontSize: 14, marginVertical: 6, 
+  },
   patternContainer: {
-    flex: 2,
+    flex: 4,
+    borderColor: 'blue',
+    borderWidth: 1,
     // marginVertical: 10,
     // marginHorizontal: 30
   },
-
   buttonContainer: {
     flex: 1,
-    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   button: {
     width: 200,
