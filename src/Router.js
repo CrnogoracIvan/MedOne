@@ -2,26 +2,12 @@ import React, { Component } from 'react'
 import { Scene, Router, Actions } from 'react-native-router-flux'
 import cameraScreen from './screens/cameraScreen'
 import patternScreen from './screens/patternScreen'
-import pat from './screens/pat'
 
 
 class RouterComponent extends Component {
   constructor (props) {
     super(props)
   };
-
-  // renderBackButton = () => {
-  //   return (
-  //     <TouchableOpacity
-  //       onPress={() => {this.props.logOut()}}>
-  //       <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft:18 }}>
-  //         <Image
-  //                 source={require('./assets/images/exit.png')}
-  //                 resizeMode={'contain'}/>
-  //       </View>
-  //     </TouchableOpacity>
-  //   );
-  // };
 
   onBackPress () {
     if (Actions.state.index === 0) {
@@ -39,7 +25,7 @@ class RouterComponent extends Component {
         <Scene key='root'>
           <Scene
             hideNavBar
-            // initial
+            initial
             key='cameraScreen'
             component={cameraScreen}
           />
@@ -49,15 +35,7 @@ class RouterComponent extends Component {
             key='patternScreen'
             component={patternScreen}
           />
-
-          <Scene
-          initial
-
-            hideNavBar
-            key='pat'
-            component={pat}
-          />
-          </Scene>
+        </Scene>
       </Router>
     )
   };
