@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
+import { Text, TouchableOpacity, View, Image } from 'react-native'
 import { Actions } from 'react-native-router-flux'
 import { RNCamera } from 'react-native-camera';
 import Spinner from 'react-native-loading-spinner-overlay'
-import constants from '../constants'
-import Header from '../components/header'
+import constants from '../../constants'
+import styles from './styles'
+import Header from '../../components/header'
 
 class cameraScreen extends Component {
   constructor(props){
@@ -57,45 +58,4 @@ class cameraScreen extends Component {
       )
     }
   }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-  },
-  preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-  },
-
-  captureButtonContainer: { 
-    flexDirection: 'column', 
-    justifyContent: 'center', 
-    alignItems: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)', 
-    width: '100%', 
-    borderTopLeftRadius: 35,
-    borderTopRightRadius: 35 
-  },
-
-  textContainer: {
-    marginTop: 20
-  },
-
-  text: {
-    fontSize: 25,
-    color: 'rgb(0, 0, 0)'
-  },
-
-  touchableButtonContainer: {
-    flex: 0,
-    alignSelf: 'center',
-    margin: 20,
-  },
-  captureImage: {
-    width: 100,
-    height: 100
-  },
-});
 export default cameraScreen

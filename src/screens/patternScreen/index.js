@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, TouchableOpacity, View, ImageBackground, Image, Alert, Dimensions, Text } from 'react-native'
+import { TouchableOpacity, View, ImageBackground, Image, Text } from 'react-native'
 import LinearGradient from 'react-native-linear-gradient'
-import constants from '../constants'
-import Header from '../components/header'
+import constants from '../../constants'
+import styles from './styles'
+import Header from '../../components/header'
 import GesturePassword from 'react-native-smart-gesture-password-angeloslex'
 
 class patternScreen extends Component {
@@ -14,15 +15,13 @@ class patternScreen extends Component {
       messageColor: '#A9A9A9',
       password: '',
       thumbnails: [],
-  };
-  this._cachedPassword = ''
-  this._verifiedPassword = ''
+    };
   }
 
   componentDidMount(){
     this._cachedPassword = ''
+    this._verifiedPassword = ''
   }
-
 
   _onReset = () => {
     let isWarning = false
@@ -57,7 +56,6 @@ class patternScreen extends Component {
       })
       return
     }
-
     if (this._cachedPassword !== '' && this._verifiedPassword === '') {
       if (password === this._cachedPassword){
         this._verifiedPassword = password
@@ -96,13 +94,14 @@ class patternScreen extends Component {
     return (
       <View style={{flex:1}}>
         <Header showLogo/>
-        <View style={{height: 158, paddingBottom: 10, justifyContent: 'flex-end', alignItems: 'center',}}>
+        <View style={styles.headerTextContainer}>
           <Text
             style={[styles.message, {color:this.state.messageColor}]}>{this.state.message}</Text>
         </View>
       </View>
     )
   }
+
   renderButton = () => {
     return (
       <TouchableOpacity
@@ -155,52 +154,7 @@ class patternScreen extends Component {
           </View>
         </LinearGradient>
       </ImageBackground>
-  );
+     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'stretch',
-    backgroundColor : 'transparent',
-  },
-  contentContainer: {
-    flex : 1,
-    flexDirection: 'row',
-    overflow:'visible',
-    alignItems: 'center',
-    alignSelf: 'stretch',
-  },
-  viewCont: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 260,
-    height: 60,
-    margin: 20,
-    borderRadius: 10,
-    backgroundColor: 'rgb(255,255,255)'
-  },
-  message:{
-    fontFamily: '.HelveticaNeueInterface-MediumP4', 
-    fontSize: 18, 
-    marginVertical: 6, 
-  },
-  patternContainer: {
-    flex: 6,
-    // marginVertical: 10,
-    // marginHorizontal: 30
-  },
-  buttonContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  button: {
-    width: 200,
-    height: 60,
-  }
-});
 export default patternScreen

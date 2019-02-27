@@ -4,6 +4,29 @@ import RNExitApp from 'react-native-exit-app'
 import constants from '../constants'
 
 const header = (props) => {
+  renderTopContainer = () => {
+    return(
+      <View style={styles.topContainer}>
+        <View style={styles.closeIconContainer}>
+          <TouchableOpacity
+            onPress={() => RNExitApp.exitApp()}
+          >
+            <Image
+              source={constants.CLOSE_ICON}
+              style={styles.closeIcon}
+            />
+          </TouchableOpacity>
+        </View>
+        
+        <View style={styles.micIconContainer}>
+          <Image
+            source={constants.MIC_ICON}
+            style={styles.micIcon}
+          />
+        </View>
+      </View>
+    )
+  }
   renderBottomContainer = () => {
     if (props.showLogo) {
       return (
@@ -20,26 +43,7 @@ const header = (props) => {
    renderBody = () => {
     return (
       <View style={styles.container}>
-        <View style={styles.topContainer}>
-          <View style={{flex: 1, alignItems: "flex-start"}}>
-            <TouchableOpacity
-              onPress={() => RNExitApp.exitApp()}
-            >
-              <Image
-                source={constants.CLOSE_ICON}
-                style={styles.closeIcon}
-              />
-            </TouchableOpacity>
-           
-          </View>
-          
-          <View style={{flex: 1, alignItems: "flex-end"}}>
-            <Image
-              source={constants.MIC_ICON}
-              style={styles.micIcon}
-            />
-          </View>
-        </View>
+        {renderTopContainer()}
         {renderBottomContainer()}
       </View>
     )
@@ -51,12 +55,9 @@ const header = (props) => {
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flex:1,
     flexDirection: 'column',
-    // borderWidth: 1,
-    // borderColor: 'red',
     width:'100%'
   },
 
@@ -74,11 +75,21 @@ const styles = StyleSheet.create({
     height: 40,
   },
 
+  closeIconContainer: {
+    flex: 1, 
+    alignItems: "flex-start"
+  },
+
   closeIcon: {
     width: 18,
     height: 18,
     marginTop: 30,
     marginLeft: 30
+  },
+
+  micIconContainer: {
+    flex: 1,
+    alignItems: "flex-end"
   },
 
   micIcon: {
