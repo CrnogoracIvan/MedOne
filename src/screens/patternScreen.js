@@ -20,7 +20,7 @@ class patternScreen extends Component {
   }
 
   componentDidMount(){
-    this._cachedPassword = '' //get cached gesture password
+    this._cachedPassword = ''
   }
 
 
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   viewCont: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 230,
+    width: 260,
     height: 60,
     margin: 20,
     borderRadius: 10,

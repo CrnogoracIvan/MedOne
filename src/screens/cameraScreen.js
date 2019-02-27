@@ -37,7 +37,7 @@ class cameraScreen extends Component {
           type={RNCamera.Constants.Type.front}
           flashMode={RNCamera.Constants.FlashMode.on}
           permissionDialogTitle={'Permission to use camera'}
-          permissionDialogMessage={'MedOne need permission to use your camera phone'}
+          permissionDialogMessage={'MedOne need permission to use your phone camera'}
           style={styles.preview}
         >
           <Header />
@@ -51,12 +51,12 @@ class cameraScreen extends Component {
                 style={styles.captureImage}
               />
             </TouchableOpacity>
-          </View>
-        </RNCamera>
-      </View>
-    );
+           </View>
+          </RNCamera>
+        </View>
+      )
+    }
   }
-}
 
 const styles = StyleSheet.create({
   container: {

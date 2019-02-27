@@ -70,9 +70,8 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 80,
-    height: 30,
-    margin: 5
+    width: 100,
+    height: 40,
   },
 
   closeIcon: {
