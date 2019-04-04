@@ -86,5 +86,5 @@ public class MainApplication extends Application implements ReactApplication {
       mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);
     }
   }
-  
+
 }
