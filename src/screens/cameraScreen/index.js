@@ -6,24 +6,76 @@ import Spinner from 'react-native-loading-spinner-overlay'
 import constants from '../../constants'
 import styles from './styles'
 import Header from '../../components/header'
+import OpenCV from '../../nativeModules/openCv'
 
 class cameraScreen extends Component {
   constructor(props){
     super(props)
     this.state = {
-      spinnerVisible: false
+      messageText: 'take a picture',
+      spinnerVisible: false,
+      photoAsBase64: {
+        content: '',
+        isPhotoPreview: false,
+        photoPath: '',
+      },
     }
   }
 
-  takePicture = async function() {
+  checkForBlurryImage(imageAsBase64) {
+    return new Promise((resolve, reject) => {
+      if (Platform.OS === 'android') {
+        OpenCV.checkForBlurryImage(imageAsBase64, error => {
+          // error handling
+        }, msg => {
+          console.log('000000000msg je: ', msg)
+          resolve(msg);
+        });
+      } else {
+        OpenCV.checkForBlurryImage(imageAsBase64, (error, dataArray) => {
+          resolve(dataArray[0]);
+        });
+      }
+    });
+  }
+
+  proceedWithCheckingBlurryImage() {
+    const { content, photoPath } = this.state.photoAsBase64;
+
+    this.checkForBlurryImage(content).then(blurryPhoto => {
+      if (blurryPhoto) {
+        this.setState({messageText: 'blurovana je slika'})      
+        return this.repeatPhoto();
+      }
+     
+      this.setState({ photoAsBase64: { ...this.state.photoAsBase64, isPhotoPreview: true, photoPath }, messageText: 'sve ok' });
+    }).catch(err => {
+      console.log('err', err)
+    });
+  }
+
+  async takePicture() {
     if (this.camera) {
-      this.setState({spinnerVisible: true})
-      const options = { quality: 1, base64: true };
+      const options = { quality: 0.5, base64: true };
       const data = await this.camera.takePictureAsync(options);
-      this.setState({spinnerVisible: false})      
-      Actions.patternScreen({uri:data.uri})
+      this.setState({
+        ...this.state,
+        photoAsBase64: { content: data.base64, isPhotoPreview: false, photoPath: data.uri },
+      });
+      this.proceedWithCheckingBlurryImage();
     }
-  };
+  }
+
+  repeatPhoto() {
+    this.setState({
+      ...this.state,
+      photoAsBase64: {
+        content: '',
+        isPhotoPreview: false,
+        photoPath: '',
+      },
+    });
+  }
 
   render() {
     return (
@@ -41,7 +93,8 @@ class cameraScreen extends Component {
           permissionDialogMessage={'MedOne need permission to use your phone camera'}
           style={styles.preview}
         >
-          <Header />
+          {/* <Header /> */}
+          <Text>{this.state.messageText}</Text>
           <View style={styles.captureButtonContainer}>
             <View style={styles.textContainer}>
               <Text style={styles.text}>יאמו תזמה הנפים</Text>
@@ -52,6 +105,7 @@ class cameraScreen extends Component {
                 style={styles.captureImage}
               />
             </TouchableOpacity>
+           
            </View>
           </RNCamera>
         </View>
