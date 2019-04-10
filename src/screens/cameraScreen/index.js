@@ -44,11 +44,10 @@ class cameraScreen extends Component {
 
     this.checkForBlurryImage(content).then(blurryPhoto => {
       if (blurryPhoto) {
-        this.setState({messageText: 'blurovana je slika'})      
+        this.setState({messageText: 'image is blured'})      
         return this.repeatPhoto();
       }
-     
-      this.setState({ photoAsBase64: { ...this.state.photoAsBase64, isPhotoPreview: true, photoPath }, messageText: 'sve ok' });
+      this.setState({ photoAsBase64: { ...this.state.photoAsBase64, isPhotoPreview: true, photoPath }, messageText: 'image is ok' });
     }).catch(err => {
       console.log('err', err)
     });
@@ -93,11 +92,11 @@ class cameraScreen extends Component {
           permissionDialogMessage={'MedOne need permission to use your phone camera'}
           style={styles.preview}
         >
-          {/* <Header /> */}
-          <Text>{this.state.messageText}</Text>
+          <Header />
           <View style={styles.captureButtonContainer}>
             <View style={styles.textContainer}>
-              <Text style={styles.text}>יאמו תזמה הנפים</Text>
+              <Text style={styles.text}>{this.state.messageText}</Text>             
+              {/* <Text style={styles.text}>יאמו תזמה הנפים</Text> */}
             </View>
             <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.touchableButtonContainer}>
               <Image

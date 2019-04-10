@@ -67,9 +67,14 @@ public class RNOpenCvLibraryModule extends ReactContextBaseJavaModule {
                 if (pixel > maxLap)
                     maxLap = pixel;
             }
+            System.out.println("*****maxLap: " + maxLap);
 
-//            int soglia = -6118750;
-            int soglia = -8118750;
+
+            // int soglia = -6118750;
+            int soglia = -9118750;
+
+            //this was default value
+            // int soglia = -8118750;
             if (maxLap <= soglia) {
                 System.out.println("is blur image");
             }
