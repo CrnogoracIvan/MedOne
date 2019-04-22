@@ -10,6 +10,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import com.shahenlibrary.RNVideoProcessingPackage;
 
 import com.reactlibrary.RNOpenCvLibraryPackage;
 import org.opencv.android.BaseLoaderCallback;
@@ -35,7 +36,8 @@ public class MainApplication extends Application implements ReactApplication {
             new RNExitAppPackage(),
             new LinearGradientPackage(),
             new RNCameraPackage(),
-              new RNOpenCvLibraryPackage()
+            new RNVideoProcessingPackage(),
+            new RNOpenCvLibraryPackage()
       );
     }
 

@@ -8,6 +8,7 @@ import styles from './styles'
 import Header from '../../components/header'
 import OpenCV from '../../nativeModules/openCv'
 import base64 from 'base64-js'
+import { ProcessingManager } from 'react-native-video-processing'
 
 let ws
 
@@ -99,6 +100,36 @@ class cameraScreen extends Component {
     }
   }
 
+  async recordVideo () {
+    if (this.camera) {
+      const options = { maxDuration: 3 }
+      const data = await this.camera.recordAsync(options)
+      await this.setState({
+        data
+      })
+      console.log('*********video data is: ', data)
+
+      this.processImagesFromVideo (data.uri)
+
+      // const maximumSize = { width: 100, height: 200 }; // default is { width: 1080, height: 1080 } iOS only
+      // ProcessingManager.getPreviewForSecond (data.uri, 0.2, maximumSize) // maximumSize is iOS only
+      // .then((base64String) => console.log('This is BASE64 of image', base64String))
+      // .catch(console.warn);
+    }
+  }
+
+  async processImagesFromVideo (video) {
+    console.log('usaoo')
+    const maximumSize = { width: 100, height: 200 }
+    for (let index = 0; index <= 10; index++) {
+      console.log('index je: ', index)
+      let frame = await ProcessingManager.getPreviewForSecond (video, index/10, maximumSize)
+      console.log('frame' + index, frame)
+      
+    }
+
+  }
+
   repeatPhoto() {
     this.setState({
       ...this.state,
@@ -132,7 +163,7 @@ class cameraScreen extends Component {
               <Text style={styles.text}>{this.state.messageText}</Text>             
               {/* <Text style={styles.text}>יאמו תזמה הנפים</Text> */}
             </View>
-            <TouchableOpacity onPress={this.takePicture.bind(this)} style={styles.touchableButtonContainer}>
+            <TouchableOpacity onPress={this.recordVideo.bind(this)} style={styles.touchableButtonContainer}>
               <Image
                 source={constants.CAPTURE_ICON}
                 style={styles.captureImage}

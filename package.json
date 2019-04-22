@@ -17,7 +17,8 @@
     "react-native-loading-spinner-overlay": "^1.0.1",
     "react-native-router-flux": "^4.0.6",
     "react-native-smart-gesture-password": "^2.1.0",
-    "react-native-smart-gesture-password-angeloslex": "^2.1.5"
+    "react-native-smart-gesture-password-angeloslex": "^2.1.5",
+    "react-native-video-processing": "^1.20.0"
   },
   "devDependencies": {
     "babel-core": "7.0.0-bridge.0",
