@@ -7,6 +7,9 @@ import constants from '../../constants'
 import styles from './styles'
 import Header from '../../components/header'
 import OpenCV from '../../nativeModules/openCv'
+import base64 from 'base64-js'
+
+let ws
 
 class cameraScreen extends Component {
   constructor(props){
@@ -22,13 +25,15 @@ class cameraScreen extends Component {
     }
   }
 
+  componentDidMount () {
+  }
+
   checkForBlurryImage(imageAsBase64) {
     return new Promise((resolve, reject) => {
       if (Platform.OS === 'android') {
         OpenCV.checkForBlurryImage(imageAsBase64, error => {
           // error handling
         }, msg => {
-          console.log('000000000msg je: ', msg)
           resolve(msg);
         });
       } else {
@@ -61,7 +66,36 @@ class cameraScreen extends Component {
         ...this.state,
         photoAsBase64: { content: data.base64, isPhotoPreview: false, photoPath: data.uri },
       });
+
+      let byteArray = await base64.toByteArray(data.base64)
+      // console.log('******byteArray je: ', byteArray)
       this.proceedWithCheckingBlurryImage();
+      ws = new WebSocket('ws://81.218.139.160:3001/frames')
+      ws.onopen = (response) => {
+        console.log('*****on open response is: ', response)
+        ws.send (byteArray)
+        ws.onmessage = (e) => {
+          // a message was received
+          console.log('****onMessage: ', e.data);
+        };
+      }
+      ws.onmessage = (e) => {
+        // a message was received
+        console.log('****onMessage: ', e.data);
+      };
+      
+      ws.onerror = (e) => {
+        // an error occurred
+        console.log('****onError: ',e.message);
+      };
+      
+      ws.onclose = (e) => {
+        // connection closed
+        console.log('****onClose: ',e.code, e.reason);
+      };
+      // let byteArray = base64.toByteArray(data.base64)
+      // console.log('******byteArray je: ', byteArray)
+      // this.proceedWithCheckingBlurryImage();
     }
   }
 
